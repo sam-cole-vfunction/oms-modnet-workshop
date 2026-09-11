@@ -1,0 +1,30 @@
+# --- Secrets / credentials (never commit) ---
+token
+config.js
+*.token
+*.secret
+*.pem
+*.key
+.env
+.env.*
+
+# --- Script scratch / diagnostic output ---
+*.out.txt
+.deploy-downloads/
+.syntax-check.ps1
+.syntax-*.txt
+.gitcheck.txt
+.sizecheck.txt
+
+# --- Build / dependency artifacts ---
+packages/
+bin/
+obj/
+*.user
+*.suo
+
+# --- OS / editor cruft ---
+Thumbs.db
+Desktop.ini
+.vs/
+.idea/

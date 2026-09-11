@@ -1,0 +1,33 @@
+Instructions to Install OMS-NET and vFunction Agent
+
+deploy-oms.ps1 now does everything in one script: the OMS.NET deployment, the dev
+tooling (Kiro IDE, .NET 10 SDK, uv/uvx), and the vFunction .NET agent. The old
+install-vfunction-agent.ps1 has been merged into deploy-oms.ps1 and removed.
+
+Run from an elevated (Administrator) PowerShell:
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+cd C:\vFunctionLab\OMSNET\OMSNET
+
+
+# Full install (OMS.NET + tooling + vFunction agent).
+# The vFunction phase runs last and hooks into the IIS App Pool created earlier.
+# Replace the placeholders below with your own values:
+#   <VF_SERVER_URL>   e.g. http://your-vfunction-server
+#   <VF_EMAIL>        your vFunction login (email/username)
+#   <VF_PASSWORD>     your vFunction login password
+#   <VF_PACKAGE_URL>  the signed download URL for the vFunction controller Windows
+#                     installation ZIP (from the vFunction portal). Pass -PackageUrl
+#                     so the controller package downloads without prompting; omit it
+#                     and the script will prompt for a path or URL.
+.\deploy-oms.ps1 -VFServerHost "<VF_SERVER_URL>" -VFEmail "<VF_EMAIL>" -VFPassword "<VF_PASSWORD>" -PackageUrl "<VF_PACKAGE_URL>"
+
+
+# Deploy + tooling only (no vFunction agent). The vFunction phase self-skips when
+# no -VFServerHost is given, or pass -SkipVFunction to force it off.
+.\deploy-oms.ps1
+
+
+# Exercise the application (drive traffic so the agent collects data):
+.\use-apis.ps1
+.\use-apis.ps1 -Iterations 100 -DelayMs 500

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Sample NLog configuration for code-copy-net.
+
+  Drop this file next to the code-copy-net executable, renamed to
+  "nlog.config", to override the built-in logging behaviour. When present,
+  this file takes precedence over the embedded defaults regardless of the
+  -v / --verbose switch.
+
+  The configuration below mirrors what -v / --verbose activates from the
+  embedded fallback: Debug-level and above to both the console and a
+  net-code-copy.log file in the current working directory (append mode).
+-->
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      throwConfigExceptions="false">
+  <targets>
+    <target name="logfile" xsi:type="File"
+            fileName="${currentdir}/net-code-copy.log"
+            keepFileOpen="false"
+            layout="${longdate} ${level:uppercase=true} ${logger:shortName=true} ${message}${onexception:${newline}${exception:format=tostring}}" />
+    <target name="console" xsi:type="Console" layout="${level:uppercase=true}: ${message}${onexception:${newline}${exception:format=tostring}}" />
+  </targets>
+  <rules>
+    <logger name="*" minlevel="Debug" writeTo="logfile,console" />
+  </rules>
+</nlog>
