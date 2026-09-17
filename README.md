@@ -18,11 +18,17 @@ This workshop covers deploying the .NET workshop package, learning and analysing
 
 _Allow approximately 20 minutes._
 
-1. Connect to the Windows VM and open PowerShell with administrator privileges:
+1. Open AWS Console from the workshop start page, Search EC2 and identify the Public IPAddress of the Windows Desktop
+2. Connect to the Windows EC2 using RDP (Remote desktop) [Windows start -> RDP, Mac via the Windows app] 
+3. Log in with:
+
+   - Email: `workshop`
+   - Password: `vFunction2021!`
+4. Open PowerShell with administrator privileges:
 
    **Start > PowerShell > right-click > Run as administrator**
 
-2. Run the following commands:
+5. Run the following commands: (This will deploy the OMS-NET application in IIS, Install MSSQL, install vFunction agent and register the application in vFunction UI)
 
    ```powershell
    cd C:\vFunctionLab
@@ -64,7 +70,7 @@ _Allow approximately 10 minutes._
 
    ![vFunction learning progress screen](images/image5.png)
 
-6. In a Command Prompt window, start the API test script to generate application activity:
+6. In the Powershell window, start the API test script to generate application activity:
 
    ```powershell
    .\use-apis.ps1 -Iterations 100 -DelayMs 500
